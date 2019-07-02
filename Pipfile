@@ -12,6 +12,9 @@ dotenv = "*"
 setuptools = "*"
 python-dotenv = "*"
 mysql-connector-python = "*"
+tqdm = "*"
+time = "*"
+ipykernel = "*"
 
 [requires]
 python_version = "3.7"

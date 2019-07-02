@@ -2,54 +2,66 @@ import requests
 import mysql.connector
 from dotenv import load_dotenv
 import os
+import grabber
+import time
 
 
-class Importer(Grabber):
+class Importer():
 
     def __init__(self):
+        return 
+
+
+    @staticmethod
+    def _open_connection():
+        cnx = mysql.connector.connect(user=os.getenv('db_username'),
+                            password=os.getenv('db_password'),
+                            host=os.getenv('db_host'),
+                            database=os.getenv('db_name'))
+        return cnx
+
+
+    @staticmethod
+    def _validate_string(val:str) -> str:
+        if val != None:
+            if type(val) is int:
+                return str(val).encode('utf-8')
+            else:
+                return val
+
+
+    def insert_data(self, table_name: str, json):
+        
+        db_cols = list(json[0].keys())
+        i=0
+        rows = []
+        print(json[0])
+        for row in json:
+            if i >= 1:
+                rows.append(section)
+            i+=1
+            section = []
+            for col in db_cols:
+                col_value = self._validate_string(row.get(col))
+                section.append(col_value)
                 
-        cnx = mysql.connector.connect(user=os.getenv('db_username'),
-                                    password=os.getenv('db_password'),
-                                    host=os.getenv('db_host'),
-                                    database=os.getenv('db_name'))
 
+
+        cnx = self._open_connection()
         cursor = cnx.cursor()
 
+        rows_tuple = list(tuple(x) for x in rows)
+        s = ','
+        sql_cols = '(' + s.join(db_cols) + ')'
+        s_vals = ['%s' for x in range(len(db_cols))]
+        sql_values = '(' + s.join(s_vals) + ')'
 
-
-    def insert_season_data(self):
-        r = requests.get(f'{SEASONS}', headers={'Authorization': self.key})
-        json_dump = r.json()
-        cnx = mysql.connector.connect(user=os.getenv('db_username'),
-                              password=os.getenv('db_password'),
-                              host=os.getenv('db_host'),
-                              database=os.getenv('db_name'))
-
-        cursor = cnx.cursor()
-
+        data = (f"INSERT INTO {table_name} {sql_cols} VALUES {sql_values}")
         
-        
-        for i, item in enumerate(json_dump['data']):
-            date = self.validate_string(item.get("date", None))
-            day = self.validate_string(item.get("day", None))
-            gid = self.validate_string(item.get("gid", None))
-            h = self.validate_string(item.get("h", None))
-            seas = self.validate_string(item.get("seas", None))
-            stad = self.validate_string(item.get("stad", None))
-            surf = self.validate_string(item.get("surf", None))
-            v = self.validate_string(item.get("v", None))
-            wk = self.validate_string(item.get("wk", None))
+        cursor.executemany(data, rows_tuple)
 
-            insert_data = (
-            '''INSERT INTO schedule (date, day, gid, h, seas, stad, surf, v, wk)
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)''' )
-            cursor.execute(insert_data, (date, day, gid, h, seas, stad, surf, v, wk))
-
-            cnx.commit()
-            
+        cnx.commit()
         cnx.close()
-
+        
         return
 
-
-cnx.close()
