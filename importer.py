@@ -3,7 +3,7 @@ import mysql.connector
 from dotenv import load_dotenv
 import os
 import grabber
-import time
+
 
 
 class Importer():
@@ -32,10 +32,9 @@ class Importer():
 
     def insert_data(self, table_name: str, json):
         
-        db_cols = list(json[0].keys())
+        db_cols = list(json[0].keys()) # selecting databse columns from json keys
         i=0
         rows = []
-        print(json[0])
         for row in json:
             if i >= 1:
                 rows.append(section)
@@ -45,23 +44,21 @@ class Importer():
                 col_value = self._validate_string(row.get(col))
                 section.append(col_value)
                 
-
-
+        # preparing data for database insert
+        rows_tuple = list(tuple(x) for x in rows)
+        seperator = ','
+        sql_cols = '(' + seperator.join(db_cols) + ')'
+        sql_values = ['%s' for x in range(len(db_cols))]
+        sql_values = '(' + seperator.join(sql_values) + ')'
+        
+        # opening database connection
         cnx = self._open_connection()
         cursor = cnx.cursor()
-
-        rows_tuple = list(tuple(x) for x in rows)
-        s = ','
-        sql_cols = '(' + s.join(db_cols) + ')'
-        s_vals = ['%s' for x in range(len(db_cols))]
-        sql_values = '(' + s.join(s_vals) + ')'
-
         data = (f"INSERT INTO {table_name} {sql_cols} VALUES {sql_values}")
-        
         cursor.executemany(data, rows_tuple)
-
         cnx.commit()
+        # closing database connection
         cnx.close()
         
-        return
+        return print(f'Values Inserted into {table_name}')
 

@@ -198,6 +198,7 @@ endpoints = {'data':
         {'endpoint':'teams',
         'id':'',
         'filter_by':'team_name_abv',
+        'start':1,
         'team_name_abv':'', 
         'ext_params':''},
     'active_players': 
