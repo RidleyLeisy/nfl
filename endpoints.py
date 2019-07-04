@@ -1,5 +1,4 @@
 
-# need to add an overriding season 
 
 endpoints = {'data':
     {'blocks': 
