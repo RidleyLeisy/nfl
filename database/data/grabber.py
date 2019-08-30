@@ -104,10 +104,37 @@ class Grabber():
         
         count = self.start
     
-        while (count - self.start) < 10000:
+        while (count - self.start) < 500:
             count = self.start + self.offset
             print(count)
             r = requests.get(f'{URI}/{self.endpoint}/{self.season}/{self.id}?start={self.start + self.offset}{self.ext_params}',
+                                headers={'Authorization': Grabber.creds})
+            
+            if r.status_code != 200: #moves onto next season api call failed
+
+                print(f'Failed to load {self.season} with status {r.status_code}') #print what season is loading
+                break
+
+            elif len(r.json()['data']) == 0:
+                
+                print(f'Finished loading {self.season} because there is no more data')
+                break
+            else:
+                json = r.json()['data']
+                json_load.extend(json)
+                self.offset += 200 #cap of 1000 per api call
+                
+        return json_load
+
+
+    @staticmethod
+    def get_game_load(self):
+        json_load = []
+        error = True
+
+        while error:
+            
+            r = requests.get(f'{URI}/{self.endpoint}?start={self.start + self.offset}{self.ext_params}',
                                 headers={'Authorization': Grabber.creds})
             
             if r.status_code != 200: #moves onto next season api call failed
@@ -117,11 +144,12 @@ class Grabber():
             elif len(r.json()['data']) == 0:
                 error = False
                 print(f'Finished loading {self.season} because there is no more data')
+
             else:
                 json = r.json()['data']
+                print(f"Currently loading records between {self.start} and {self.offset + self.start}")
                 json_load.extend(json)
                 self.offset += 1000 #cap of 1000 per api call
-                
         return json_load
 
 
@@ -182,7 +210,7 @@ class Grabber():
         error = True
 
         while error:
-            r = requests.get(f'{URI}/{self.endpoint}/{self.player_id}{self.id}{self.ext_params}',     
+            r = requests.get(f'{URI}/{self.endpoint}/{self.player_id}/{self.id}{self.ext_params}',     
                                 headers={'Authorization': Grabber.creds})
             
             if r.status_code != 200: #moves onto next season api call failed

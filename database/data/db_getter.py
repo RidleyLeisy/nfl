@@ -27,3 +27,18 @@ class dbGetter():
         cur.close()
         cnx.close()
         return rows
+
+    
+    def get_player_by_id(self, id:str):
+        q = f'''SELECT CONCAT(p.fname,' ',p.lname)
+                FROM `player` as p
+                WHERE p.player = '{id}' '''
+        return self.query(q)
+    
+    
+    def get_player_by_name(self, name:str):
+        fname,lname = name.split(' ')
+        q = f'''SELECT p.id
+                FROM `player` as p
+                WHERE p.fname = '{fname}' AND p.lname = '{lname}' '''
+        return self.query(q)

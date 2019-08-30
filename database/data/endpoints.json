@@ -183,7 +183,8 @@
         "filter_by":"season",
         "season":2000, 
         "start":1, 
-        "ext_params":""},
+        "ext_params":"",
+        "delay":"Yes"},
     "touchdowns": 
         {"endpoint":"games",
         "id":"touchdowns",

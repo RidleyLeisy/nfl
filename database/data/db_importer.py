@@ -87,22 +87,22 @@ class dbImporter(Grabber):
         
         return print(f'Values Inserted into {self.table}')
 
-
+import time
 if __name__ == '__main__':
 
-    t = dbImporter('plays_flat')
-    for year in range(2018,2019):
+    t = dbImporter('teams')
+    for year in range(2000,2019):
         print(year)
         t.set_season(year)
-        start = 10000
-        while start < 1000000: 
-            t.set_start(start)
-            t.set_offset(0)
-            t.grab_data()
-            data = t.json_load 
-            if len(data) == 0:
-                break
-            else:
-                t.insert_data(data)
-                start += 10000
+        start = 0
+        time.sleep(20)
+        t.set_start(start)
+        t.set_offset(1)
+        t.grab_data()
+        data = t.json_load 
+        if len(data) == 0:
+            break
+        else:
+            t.insert_data(data)
+            
 
