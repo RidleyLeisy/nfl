@@ -90,19 +90,12 @@ class dbImporter(Grabber):
 import time
 if __name__ == '__main__':
 
-    t = dbImporter('teams')
-    for year in range(2000,2019):
-        print(year)
-        t.set_season(year)
-        start = 0
-        time.sleep(20)
-        t.set_start(start)
-        t.set_offset(1)
-        t.grab_data()
-        data = t.json_load 
-        if len(data) == 0:
-            break
-        else:
-            t.insert_data(data)
+    t = dbImporter('plays_flat')
+    t.set_season(2018)
+    #time.sleep(20)
+    t.set_start(1)
+    t.grab_data()
+    data = t.json_load 
+    t.insert_data(data)
             
 

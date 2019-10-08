@@ -5,9 +5,9 @@ from dotenv import load_dotenv
 import time
 import json
 
+
+
 URI = 'https://armchairanalysis.com/api/1.0'
-
-
 class Grabber():
     '''Grabber class is intended to interact with the Armchair Analysis API. It loads credentials from an env files and
     reads a json endpoints file for specific get requests. To change the standard parameters in the endpoints, use:
@@ -19,6 +19,8 @@ class Grabber():
     6. set_delay
 
     '''
+
+
     load_dotenv() 
     creds = (os.getenv('encoded_auth')) # loading env creds
     
@@ -104,25 +106,29 @@ class Grabber():
         
         count = self.start
     
-        while (count - self.start) < 500:
-            count = self.start + self.offset
-            print(count)
-            r = requests.get(f'{URI}/{self.endpoint}/{self.season}/{self.id}?start={self.start + self.offset}{self.ext_params}',
-                                headers={'Authorization': Grabber.creds})
+        #while (count - self.start) < 500:
+        count = self.start + self.offset
+        print(count)
+        # https://armchairanalysis.com/api/1.0/test/games/2019/plays?count=500&start=1&mode=flat
+        print(f'{URI}/{self.endpoint}/{self.season}/{self.id}?start={self.start}{self.ext_params}')
+        print(self.creds)
+        r = requests.get(f'{URI}/{self.endpoint}/{self.season}/{self.id}?count=100&start={self.start}{self.ext_params}',
+                            headers={'Authorization': Grabber.creds})
+        
+        if r.status_code != 200: #moves onto next season api call failed
+
+            print(f'Failed to load {self.season} with status {r.status_code} and {r.reason}') #print what season is loading
+            #break
+
+        elif len(r.json()['data']) == 0:
             
-            if r.status_code != 200: #moves onto next season api call failed
-
-                print(f'Failed to load {self.season} with status {r.status_code}') #print what season is loading
-                break
-
-            elif len(r.json()['data']) == 0:
-                
-                print(f'Finished loading {self.season} because there is no more data')
-                break
-            else:
-                json = r.json()['data']
-                json_load.extend(json)
-                self.offset += 200 #cap of 1000 per api call
+            print(f'Finished loading {self.season} because there is no more data')
+            #break
+        else:
+            json = r.json()['data']
+            json_load.extend(json)
+            self.offset += 1000 #cap of 1000 per api call
+            
                 
         return json_load
 

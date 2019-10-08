@@ -15,7 +15,7 @@ class dbGetter():
         cnx = mysql.connector.connect(user=os.getenv('db_username'),
                             password=os.getenv('db_password'),
                             host=os.getenv('db_host'),
-                            database=os.getenv('db_name'),use_pure=True)
+                            database=os.getenv('db_name'))
         return cnx
 
 
@@ -25,7 +25,7 @@ class dbGetter():
         cur.execute(query)
         rows = cur.fetchall()
         cur.close()
-        cnx.close()
+
         return rows
 
     
