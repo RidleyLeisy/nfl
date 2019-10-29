@@ -1,1 +1,6 @@
 *.env
+*.__pycache__
+bin/
+.vscode/
+env_web/
+lib/

@@ -12,7 +12,7 @@ class dbImporter(Grabber):
     create an dbImporter class for a given endpoint. This will get all supporting API creds, endpoint URLs, and table names
     for you. 
     '''
-    def __init__(self, endpoint:str):
+    def __init__(self, endpoint: str):
         super().__init__(endpoint)
         
         return 
@@ -26,7 +26,7 @@ class dbImporter(Grabber):
         return cnx
 
     @staticmethod
-    def _validate_string(val:str) -> str:
+    def _validate_string(val: str) -> str:
         """Validates rows in json file for proper database import"""
         if val != None:
             if type(val) is int:
@@ -90,11 +90,13 @@ class dbImporter(Grabber):
 import time
 if __name__ == '__main__':
 
-    t = dbImporter('plays_flat')
+    t = dbImporter('games')
     t.set_season(2018)
     #time.sleep(20)
-    t.set_start(1)
+    #t.set_start(1)
+
     t.grab_data()
+    
     data = t.json_load 
     t.insert_data(data)
             

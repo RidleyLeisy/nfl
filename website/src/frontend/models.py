@@ -337,7 +337,7 @@ class Fumbles(models.Model):
 
 
 class Games(models.Model):
-    gid = models.IntegerField(unique=True)
+    gid = models.IntegerField(unique=True,primary_key=True)
     seas = models.IntegerField()
     wk = models.IntegerField()
     day = models.CharField(max_length=3)
@@ -524,7 +524,7 @@ class Player(models.Model):
 
 
 class PlaysFlat(models.Model):
-    gid = models.IntegerField()
+    gid = models.IntegerField(primary_key=True)
     pid = models.IntegerField(unique=True)
     detail = models.TextField()
     off = models.CharField(max_length=3)
