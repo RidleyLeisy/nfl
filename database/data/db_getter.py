@@ -6,7 +6,11 @@ import os
 class dbGetter():
     def __init__(self):
         load_dotenv() 
-        creds = (os.getenv('encoded_auth')) # loading env creds
+        self.user=os.getenv('db_username')
+        self.password=os.getenv('db_password')
+        self.host=os.getenv('db_host')
+        self.database=os.getenv('db_name')
+        #creds = (os.getenv('encoded_auth')) # loading env creds
         return
 
 
@@ -15,7 +19,8 @@ class dbGetter():
         cnx = mysql.connector.connect(user=os.getenv('db_username'),
                             password=os.getenv('db_password'),
                             host=os.getenv('db_host'),
-                            database=os.getenv('db_name'))
+                            database=os.getenv('db_name'),
+                            use_pure=True)
         return cnx
 
 

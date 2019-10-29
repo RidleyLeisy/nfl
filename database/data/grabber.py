@@ -47,7 +47,7 @@ class Grabber():
 
 
     def _read_json_endpoints(self):
-        with open('/Users/ridleyleisy/Documents/nfl/database/data/endpoints.json') as json_file:
+        with open('/Users/ridleyleisy/dev/nfl/database/data/endpoints.json') as json_file:
             endpoints = json.load(json_file)
         return endpoints
 
