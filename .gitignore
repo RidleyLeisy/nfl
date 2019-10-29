@@ -1,10 +1,11 @@
 node_modules
-node_modules/
+node_modules/*
 notebooks/
 env_db/
 env_web/
 .vscode/
 __pychache__/
 *.env
-website/bin/
 bin/
+lib/
+package-lock.json
