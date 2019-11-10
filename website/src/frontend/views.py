@@ -9,17 +9,15 @@ from frontend.models import Conversions, Blocks, Games
 def home_view(request, *args, **kwargs):
     return render(request, "home.html", {})
 
-
 def about_view(request, *args, **kwargs):
     return render(request, "about.html", {})
 
+def offense_view(request, *args, **kwargs):
+	return render(request, "offense.html", {})
 
-def teams_view(request, *args, **kwargs):
-	return render(request, "teams.html", {})
 
-
-def players_view(request, *args, **kwargs):
-    return render(request, "players.html", {})
+def defense_view(request, *args, **kwargs):
+    return render(request, "defense.html", {})
 
 
 def twitter_view(request, *args, **kwargs):

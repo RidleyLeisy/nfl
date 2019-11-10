@@ -16,13 +16,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
-from frontend.views import home_view, about_view, teams_view, players_view, twitter_view
+from frontend.views import home_view, about_view, offense_view, defense_view, twitter_view
 
 urlpatterns = [
     path('', home_view, name='home'),
     path('about', about_view, name='about'),
-    path('players', players_view, name='players'),
-    path('teams', teams_view, name='teams'),
+    path('defense', defense_view, name='defense'),
+    path('offense', offense_view, name='offense'),
     path('twitter', twitter_view, name='twitter'),
     path('admin/', admin.site.urls),
     # api views

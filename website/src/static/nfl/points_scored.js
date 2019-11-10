@@ -10,71 +10,45 @@ const mainFunction = (team_name, season) => {
     getResponse(team_name).then(function(data){
         xAxis = []
         yAxis = []
-        xHome = []
-        xAway = []
+        pointsScored = []
+        weekLabels = []
+
         console.log(data)
         data.forEach(function(game){
             if (game.v == `${team_name}` && game.seas == `${season}`){
                 yAxis.push(game.ptsv)
                 xAxis.push(game.seas)
-                xHome.push(game.ptsv)
+                pointsScored.push(game.ptsv)
+                weekLabels.push('Week ' + game.wk)
             }
             if (game.h == `${team_name}` && game.seas == `${season}`){
                 yAxis.push(game.ptsh)
-                xAway.push(game.ptsh)
                 xAxis.push(game.seas)
+                pointsScored.push(game.ptsh)
+                weekLabels.push('Week ' + game.wk)
             }
-
     }
     )
     var ele = document.getElementById('data')
-
-    var charts = [],
-    $containers = $('#home_away td'),
-    datasets = [{
-        name: 'Away',
-        data: xAway},
-    {
-        name: 'Home',
-        data: xHome}];
-
-
-    $.each(datasets, function(i, dataset) {
-        charts.push(new Highcharts.Chart({
-
-            chart: {
-                renderTo: $containers[i],
-                type: 'column',
-                marginLeft: i === 0 ? 100 : 10
+    var awayHome = Highcharts.chart('graph', {
+        xAxis:{
+            categories: weekLabels
+        },
+        plotOptions: {
+            series: {
+                // general options for all series
             },
-
-            title: {
-                text: dataset.name,
-                x: i === 0 ? 90 : 0
-            },
-
-            credits: {
-                enabled: false
-            },
-
-            yAxis: {
-                allowDecimals: false,
-                title: {
-                    text: null
-                },
-                min: 0,
-                max: 50
-            },
-
-
-            legend: {
-                enabled: false
-            },
-
-            series: [dataset]
-
-        }));
+            line: {
+                // shared options for all line series
+            }
+        },
+        series: [{
+            // specific options for this series instance
+            type: 'line',
+            data: pointsScored
+        }]
     });
+
     var myChart = Highcharts.chart('data', {
         title: {
             text: 'Distribution of Points by Season'
