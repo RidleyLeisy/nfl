@@ -9,5 +9,5 @@
 3. Players
     a. Dashboard with specific players details 
     b. Sub category dashboard based on postion
-4. Upcoming Game Breakdowns
+4. Match Ups
     a. Predictable stats for upcoming week game winners
