@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 import os
 
 class dbGetter():
+    """Class that helps query database"""
     def __init__(self):
         load_dotenv() 
         self.user=os.getenv('db_username')
@@ -25,6 +26,7 @@ class dbGetter():
 
 
     def query(self, query:str):
+        """Input your own query using this method"""
         cnx = self._open_connection()
         cur = cnx.cursor()
         cur.execute(query)
@@ -35,6 +37,7 @@ class dbGetter():
 
     
     def get_player_by_id(self, id:str):
+        """Get First and Last Name of player by their ID"""
         q = f'''SELECT CONCAT(p.fname,' ',p.lname)
                 FROM `player` as p
                 WHERE p.player = '{id}' '''
@@ -42,6 +45,7 @@ class dbGetter():
     
     
     def get_player_by_name(self, name:str):
+        """Get ID of player by using their First and Last Name"""
         fname,lname = name.split(' ')
         q = f'''SELECT p.id
                 FROM `player` as p

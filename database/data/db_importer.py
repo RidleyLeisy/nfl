@@ -60,6 +60,7 @@ class dbImporter(Grabber):
 
     @staticmethod
     def _database_prep(rows:list, json):
+        """Method used to clean API call in order to properly import into database"""
         db_cols = list(json[0].keys())
         rows_tuple = list(tuple(x) for x in rows)
         seperator = ','
@@ -87,17 +88,17 @@ class dbImporter(Grabber):
         
         return print(f'Values Inserted into {self.table}')
 
-import time
+
 if __name__ == '__main__':
 
-    t = dbImporter('games')
-    t.set_season(2018)
-    #time.sleep(20)
-    #t.set_start(1)
+    # t = dbImporter('games')
+    # t.set_season(2018)
+    # #time.sleep(20)
+    # #t.set_start(1)
 
-    t.grab_data()
+    # t.grab_data()
     
-    data = t.json_load 
-    t.insert_data(data)
+    # data = t.json_load 
+    # t.insert_data(data)
             
 

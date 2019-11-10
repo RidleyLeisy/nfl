@@ -1,10 +1,8 @@
-
 import requests
 import os
 from dotenv import load_dotenv
 import time
 import json
-
 
 
 URI = 'https://armchairanalysis.com/api/1.0'
@@ -109,7 +107,6 @@ class Grabber():
         #while (count - self.start) < 500:
         count = self.start + self.offset
         print(count)
-        # https://armchairanalysis.com/api/1.0/test/games/2019/plays?count=500&start=1&mode=flat
         print(f'{URI}/{self.endpoint}/{self.season}/{self.id}?start={self.start}{self.ext_params}')
         print(self.creds)
         r = requests.get(f'{URI}/{self.endpoint}/{self.season}/{self.id}?count=100&start={self.start}{self.ext_params}',
