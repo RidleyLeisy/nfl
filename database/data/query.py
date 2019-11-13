@@ -3,7 +3,7 @@ import mysql.connector
 from dotenv import load_dotenv
 import os
 
-class dbGetter():
+class Query():
     """Class that helps query database"""
     def __init__(self):
         load_dotenv() 
