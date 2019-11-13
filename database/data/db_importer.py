@@ -1,21 +1,32 @@
 import requests
+import json
+import os
 import mysql.connector
 from dotenv import load_dotenv
-import os
-from grabber import Grabber
+from api_getter import apiGetter
 
 
 
-class dbImporter(Grabber):
+class dbImporter():
     '''
     This class is intended to be used with Armchair Analysis API only. To import data into the mysql db,
     create an dbImporter class for a given endpoint. This will get all supporting API creds, endpoint URLs, and table names
     for you. 
     '''
     def __init__(self, endpoint: str):
-        super().__init__(endpoint)
-        
+        self.endpoint = endpoint
+        json_endpoints = self._read_json_endpoints()
+        data = json_endpoints['data'] # adding endpoints dictionary
+        sub = data.get(endpoint) # get parameters for specific endpoint
+        self.table = sub.get('table')
         return 
+
+    
+    def _read_json_endpoints(self):
+        with open('/Users/ridleyleisy/dev/nfl/database/data/endpoints.json') as json_file:
+            endpoints = json.load(json_file)
+        return endpoints
+
 
     def _open_connection(self):
         """Connects to database given env variables"""
@@ -24,6 +35,7 @@ class dbImporter(Grabber):
                             host=os.getenv('db_host'),
                             database=os.getenv('db_name'),use_pure=True)
         return cnx
+
 
     @staticmethod
     def _validate_string(val: str) -> str:
@@ -77,28 +89,12 @@ class dbImporter(Grabber):
         
         print(f'Import the following columns: {sql_cols} into {self.table}')
 
-        for sec in self.chunks(rows_tuple, 20):
+        for sec in self.chunks(rows_tuple, 1000):
             cnx = self._open_connection() # opening database connection
             cursor = cnx.cursor()
-            data = (f"INSERT INTO {self.table} {sql_cols} VALUES {sql_values}")
+            data = (f"INSERT IGNORE INTO {self.table} {sql_cols} VALUES {sql_values}")
             cursor.executemany(data, sec)
             cnx.commit()
             cnx.close() # closing database connection
         
-        
         return print(f'Values Inserted into {self.table}')
-
-
-if __name__ == '__main__':
-
-    # t = dbImporter('games')
-    # t.set_season(2018)
-    # #time.sleep(20)
-    # #t.set_start(1)
-
-    # t.grab_data()
-    
-    # data = t.json_load 
-    # t.insert_data(data)
-            
-
