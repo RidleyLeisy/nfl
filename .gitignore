@@ -9,3 +9,6 @@ __pychache__/
 bin/
 lib/
 package-lock.json
+*Pipfile
+*Pipfile.lock
+*settings.py
