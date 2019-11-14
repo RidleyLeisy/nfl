@@ -75,7 +75,7 @@
         {"endpoint":"games",
         "table":"games",
         "id":"",
-        "filter_by":"season",
+        "filter_by":"games",
         "season":2000, 
         "start":1, 
         "ext_params":""},

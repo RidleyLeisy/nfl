@@ -98,3 +98,4 @@ class dbImporter():
             cnx.close() # closing database connection
         
         return print(f'Values Inserted into {self.table}')
+

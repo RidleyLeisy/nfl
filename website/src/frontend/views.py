@@ -12,14 +12,46 @@ def home_view(request, *args, **kwargs):
 def about_view(request, *args, **kwargs):
     return render(request, "about.html", {})
 
-def offense_view(request, *args, **kwargs):
-	return render(request, "offense.html", {})
+def team_view(request, *args, **kwargs):
+	return render(request, "teams.html", {})
+
+def offense_team_view(request, *args, **kwargs):
+    return render(request, "teams/offense.html")
+
+def defense_team_view(request, *args, **kwargs):
+    return render(request, "teams/defense.html")
+
+def player_view(request, *args, **kwargs):
+    return render(request, "players.html", {})
+
+def qb_view(request, *args, **kwargs):
+    return render(request, "players/qb.html", {})
+
+def wr_view(request, *args, **kwargs):
+    return render(request, "players/wr.html", {})
+
+def dl_view(request, *args, **kwargs):
+    return render(request, "players/dl.html", {})
+
+def ol_view(request, *args, **kwargs):
+    return render(request, "players/ol.html", {})
+
+def rb_view(request, *args, **kwargs):
+    return render(request, "players/rb.html", {})
+
+def db_view(request, *args, **kwargs):
+    return render(request, "players/db.html", {})
+
+def te_view(request, *args, **kwargs):
+    return render(request, "players/te.html", {})
+
+def lb_view(request, *args, **kwargs):
+    return render(request, "players/lb.html", {})
+
+def kicker_view(request, *args, **kwargs):
+    return render(request, "players/kicker.html", {})
 
 
-def defense_view(request, *args, **kwargs):
-    return render(request, "defense.html", {})
-
-
-def twitter_view(request, *args, **kwargs):
-    return render(request, "twitter.html", {})
+def matchup_view(request, *args, **kwargs):
+    return render(request, "matchups.html", {})
 
