@@ -23,10 +23,13 @@ class PlaysFlatReadView(generics.ListAPIView):
 		game_id = self.kwargs['game_id']
 		return PlaysFlat.objects.filter(gid=game_id)
 
+
 class TouchdownsReadView(generics.ListAPIView):
 	serializer_class = TouchdownsFlatSerializer
 	permissions_class = [IsAdminUser]
 
 	def get_queryset(self):
 		team_name = self.kwargs['team_name']
-		Games.objects.filter(Q(h=team_name) | Q(v=team_name)).select_related(Games__gid=)
+		Games.objects.filter(Q(h=team_name) | Q(v=team_name))
+		return
+		

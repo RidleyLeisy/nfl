@@ -16,14 +16,25 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
-from frontend.views import home_view, about_view, offense_view, defense_view, twitter_view
+from frontend.views import *
 
 urlpatterns = [
     path('', home_view, name='home'),
     path('about', about_view, name='about'),
-    path('defense', defense_view, name='defense'),
-    path('offense', offense_view, name='offense'),
-    path('twitter', twitter_view, name='twitter'),
+    path('teams', team_view, name='teams'),
+    path('teams/offense', offense_team_view, name='offense'),
+    path('teams/defense', defense_team_view, name='defense'),
+    path('players', player_view, name='players'),
+    path('players/db', db_view, name='db'),
+    path('players/dl', dl_view, name='dl'),
+    path('players/kicker', kicker_view, name='kicker'),
+    path('players/ol', ol_view, name='ol'),
+    path('players/qb', qb_view, name='qb'),
+    path('players/rb', rb_view, name='rb'),
+    path('players/te', te_view, name='te'),
+    path('players/wr', wr_view, name='wr'),
+    path('players/lb', lb_view, name='lb'),
+    path('matchups', matchup_view, name='matchups'),
     path('admin/', admin.site.urls),
     # api views
     url(r'^api/games/',include(('frontend.api.urls','frontend'),namespace='api-games')),

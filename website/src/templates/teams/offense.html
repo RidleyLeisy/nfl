@@ -1,14 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1> Home </h1>
 
 <head>
     {% load static %}
     <script src="{% static 'nfl/points_scored.js' %}"></script>
 </head>
 <body>
-    <h2>Header Test</h2>
+    <h2>Choose your team</h2>
     <br>
     <button id='teams' onclick="storeInput()">Send It</button>
         <select id='team-name'> 
@@ -64,6 +63,7 @@
             <option value="2016">2016</option>
             <option value="2017">2017</option>
             <option value="2018">2018</option>
+            <option value="2019">2019</option>
         </select>
     <script>
     function storeInput(){

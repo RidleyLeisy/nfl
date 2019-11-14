@@ -156,25 +156,19 @@ class apiGetter():
     def get_game_load(self):
         '''Loads data from API endpoint that requires game details. Intended for game specific endpoints: Game Details, Game Stats'''
         json_load = []
-        error = False
+        r = requests.get(f'{URI}/{self.endpoint}/{self.season}',
+                            headers={'Authorization': apiGetter.creds})
+        
+        if r.status_code != 200: 
+            print(f'Failed to load {self.season} with status {r.status_code}') # Failure state
 
-        while error == False:
-            r = requests.get(f'{URI}/{self.endpoint}/{self.season}',
-                                headers={'Authorization': apiGetter.creds})
-            
-            if r.status_code != 200: 
-                error = True # Breaking loop 
-                print(f'Failed to load {self.season} with status {r.status_code}') # Failure state
+        elif len(r.json()['data']) == 0:
+            print(f'Finished loading {self.season} because there is no more data')
 
-            elif len(r.json()['data']) == 0:
-                error = True # Breaking loop
-                print(f'Finished loading {self.season} because there is no more data')
-
-            else:
-                json = r.json()['data']
-                print(f"Currently loading records between {self.start} and {self.offset + self.start}") # Failure state
-                json_load.extend(json)
-                self.offset += 1000 # Adding offset
+        else:
+            json = r.json()['data']
+            print(f"Currently loading records between {self.start} and {self.offset + self.start}") # Failure state
+            json_load.extend(json)
         return json_load
 
 
