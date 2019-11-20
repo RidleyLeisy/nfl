@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from frontend.models import Games, PlaysFlat, Touchdowns
+from frontend.models import Games, PlaysFlat, Touchdowns, Player
 
 # Convert Querysets to Json and Validate 
 
@@ -17,4 +17,9 @@ class PlaysFlatSerializer(serializers.ModelSerializer):
 class TouchdownsFlatSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Touchdowns
+		fields = '__all__'
+
+class PlayerPositionSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Player
 		fields = '__all__'

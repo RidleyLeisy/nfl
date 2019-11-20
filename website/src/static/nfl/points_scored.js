@@ -27,6 +27,7 @@ const mainFunction = (team_name, season) => {
                 pointsScored.push(game.ptsh)
                 weekLabels.push('Week ' + game.wk)
             }
+            
     }
     )
     var ele = document.getElementById('data')

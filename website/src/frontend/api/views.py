@@ -33,3 +33,6 @@ class TouchdownsReadView(generics.ListAPIView):
 		Games.objects.filter(Q(h=team_name) | Q(v=team_name))
 		return
 		
+class PlayerPositionReadView(generics.ListAPIView):
+	serializer_class = PlayerPositionSerializer
+	permission_classes = [IsAdminUser]
