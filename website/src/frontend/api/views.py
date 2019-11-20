@@ -1,6 +1,6 @@
 from rest_framework import generics
 from frontend.models import Games, PlaysFlat
-from .serializers import GamesSerializer, PlaysFlatSerializer, TouchdownsFlatSerializer
+from .serializers import *
 from rest_framework.permissions import IsAdminUser
 from rest_framework import filters  
 from django.db.models import Q
@@ -33,6 +33,11 @@ class TouchdownsReadView(generics.ListAPIView):
 		Games.objects.filter(Q(h=team_name) | Q(v=team_name))
 		return
 		
+
 class PlayerPositionReadView(generics.ListAPIView):
 	serializer_class = PlayerPositionSerializer
 	permission_classes = [IsAdminUser]
+
+	def get_queryset(self):
+		player_name = self.kwargs['player_name']
+		return Player.objects.filter(Q(fname=player_name))

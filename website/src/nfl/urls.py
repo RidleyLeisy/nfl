@@ -38,5 +38,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # api views
     url(r'^api/games/',include(('frontend.api.urls','frontend'),namespace='api-games')),
-    url(r'^api/playsflat/',include(('frontend.api.urls','frontend'),namespace='api-playsflat'))
+    url(r'^api/playsflat/',include(('frontend.api.urls','frontend'),namespace='api-playsflat')),
+    url(r'^api/player/',include(('frontend.api.urls','frontend'),namespace='api-player'))
     ]

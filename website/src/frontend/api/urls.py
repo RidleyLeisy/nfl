@@ -16,10 +16,11 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from .views import GamesReadView, PlaysFlatReadView
+from .views import *
 
 urlpatterns = [
 	url(r'^admin/',admin.site.urls),
 	url(r'^(?P<team_name>\D+)/$',GamesReadView.as_view(),name='game-read'),
     url(r'^(?P<game_id>\d+)/$',PlaysFlatReadView.as_view(),name='game-read'),
+    url(r'^(?P<player_name>\d+)/$',PlayerPositionReadView.as_view(),name='player-read'),
 ]
