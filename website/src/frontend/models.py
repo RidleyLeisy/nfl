@@ -491,7 +491,7 @@ class Penalties(models.Model):
 
 
 class Player(models.Model):
-    player = models.CharField(unique=True, max_length=7)
+    player = models.CharField(unique=True, max_length=7,primary_key=True)
     fname = models.CharField(max_length=20)
     lname = models.CharField(max_length=25)
     pname = models.CharField(max_length=25)
@@ -714,7 +714,7 @@ class Tackles(models.Model):
 
 
 class Teams(models.Model):
-    tid = models.IntegerField()
+    tid = models.IntegerField(primary_key=True)
     gid = models.IntegerField()
     tname = models.CharField(max_length=3)
     pts = models.IntegerField()

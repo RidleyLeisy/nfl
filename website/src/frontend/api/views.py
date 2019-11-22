@@ -1,43 +1,49 @@
-from rest_framework import generics
-from frontend.models import Games, PlaysFlat
+from rest_framework import viewsets, filters
+from frontend.models import *
 from .serializers import *
 from rest_framework.permissions import IsAdminUser
-from rest_framework import filters  
 from django.db.models import Q
+from rest_framework.response import Response
 
 
-class GamesReadView(generics.ListAPIView):
-	serializer_class = GamesSerializer
+class GamesReadView(viewsets.ViewSet):
+	
 	permission_classes = [IsAdminUser]
 
-	def get_queryset(self):
-		team_name = self.kwargs['team_name']
-		return Games.objects.filter(Q(h=team_name) | Q(v=team_name))
+	def list(self, request):
+		team_name = self.request.query_params.get('team_name')
+		query_set = Games.objects.filter(Q(h=team_name) | Q(v=team_name))
+		serializer = GamesSerializer(query_set, many=True)
+		return Response(serializer.data)
 
 
-class PlaysFlatReadView(generics.ListAPIView):
-	serializer_class = PlaysFlatSerializer
+class PlaysFlatReadView(viewsets.ViewSet):
+	
 	permission_classes = [IsAdminUser]
 	
-	def get_queryset(self):
-		game_id = self.kwargs['game_id']
-		return PlaysFlat.objects.filter(gid=game_id)
+	def list(self, request):
+		game_id = self.request.query_params.get('game_id')
+		query_set = PlaysFlat.objects.filter(gid=game_id)
+		serializer = PlaysFlatSerializer(query_set, many=True)
+		return Response(serializer.data)
 
 
-class TouchdownsReadView(generics.ListAPIView):
-	serializer_class = TouchdownsFlatSerializer
+class TeamStatsReadView(viewsets.ViewSet):
 	permissions_class = [IsAdminUser]
 
-	def get_queryset(self):
-		team_name = self.kwargs['team_name']
-		Games.objects.filter(Q(h=team_name) | Q(v=team_name))
-		return
-		
+	def list(self, request):
+		team_name = self.request.query_params.get('team_name')
+		query_set = Teams.objects.filter(tname=team_name)
+		serializer = TeamStatsSerializer(query_set, many=True)
+		return Response(serializer.data)
 
-class PlayerPositionReadView(generics.ListAPIView):
+
+class PlayerPositionReadView(viewsets.ViewSet):
 	serializer_class = PlayerPositionSerializer
 	permission_classes = [IsAdminUser]
 
-	def get_queryset(self):
-		player_name = self.kwargs['player_name']
-		return Player.objects.filter(Q(fname=player_name))
+	def list(self, request):
+		player_name = self.request.query_params.get('player_name')
+		query_set = Player.objects.filter(Q(fname=player_name))
+		serializer = PlayerPositionSerializer(query_set, many=True)
+		return Response(serializer.data)
