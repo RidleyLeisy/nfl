@@ -1,6 +1,15 @@
 
 {"data":
-    {"blocks": 
+    {"active_players": 
+        {"endpoint":"players",
+        "id":"",
+        "table":"active_players",
+        "filter_by":"player",
+        "season": "",
+        "start": 1,
+        "team_name_abv":"", 
+        "ext_params":""},
+    "blocks": 
         {"endpoint":"games",
         "table":"blocks",
         "id":"blocks",
@@ -39,6 +48,13 @@
         "season":2000, 
         "start":1, 
         "ext_params":""},
+    "drives": 
+        {"endpoint":"games",
+        "id":"",
+        "table":"drives",
+        "filter_by":"games",
+        "season":2000, 
+        "ext_params":""},
     "fgxps": 
         {"endpoint":"games",
         "table":"fgxps",
@@ -59,9 +75,17 @@
         {"endpoint":"games",
         "table":"games",
         "id":"",
-        "filter_by":"season",
+        "filter_by":"games",
         "season":2000, 
         "start":1, 
+        "ext_params":""},
+    "game_stats": 
+        {"endpoint":"teams",
+        "id":"",
+        "table":"game_stats",
+        "filter_by":"team_name_abv",
+        "start":1,
+        "team_name_abv":"", 
         "ext_params":""},
     "injuries": 
         {"endpoint":"games",
@@ -198,37 +222,7 @@
         "filter_by":"player_id",
         "player_id":0, 
         "ext_params":"",
-        "delay":"Yes"},
-    "drives": 
-        {"endpoint":"drives",
-        "id":"",
-        "table":"drives",
-        "filter_by":"team_name_abv",
-        "team_name_abv":"", 
-        "ext_params":""},
-    "drive_details": 
-        {"endpoint":"games",
-        "id":"",
-        "table":"drive_details",
-        "filter_by":"team_name_abv",
-        "team_name_abv":"", 
-        "ext_params":""},
-    "game_stats": 
-        {"endpoint":"teams",
-        "id":"",
-        "table":"game_stats",
-        "filter_by":"team_name_abv",
-        "start":1,
-        "team_name_abv":"", 
-        "ext_params":""},
-    "active_players": 
-        {"endpoint":"players",
-        "id":"",
-        "table":"active_players",
-        "filter_by":"player",
-        "season": "",
-        "start": 1,
-        "team_name_abv":"", 
-        "ext_params":""}}
+        "delay":"Yes"}
+    }
 }
 

@@ -15,9 +15,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from frontend.views import home_view
+from django.conf.urls import url, include
+from frontend.views import *
+from frontend.api.views import *
+from .router import router
 
 urlpatterns = [
     path('', home_view, name='home'),
+    path('about', about_view, name='about'),
+    path('teams', team_view, name='teams'),
+    path('teams/offense', offense_team_view, name='offense'),
+    path('teams/defense', defense_team_view, name='defense'),
+    path('players', player_view, name='players'),
+    path('players/db', db_view, name='db'),
+    path('players/dl', dl_view, name='dl'),
+    path('players/kicker', kicker_view, name='kicker'),
+    path('players/ol', ol_view, name='ol'),
+    path('players/qb', qb_view, name='qb'),
+    path('players/rb', rb_view, name='rb'),
+    path('players/te', te_view, name='te'),
+    path('players/wr', wr_view, name='wr'),
+    path('players/lb', lb_view, name='lb'),
+    path('matchups', matchup_view, name='matchups'),
     path('admin/', admin.site.urls),
-]
+    # api views
+    path('api/',include(router.urls)),
+    ]
