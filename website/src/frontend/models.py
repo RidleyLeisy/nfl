@@ -354,7 +354,7 @@ class Games(models.Model):
     sprv = models.DecimalField(max_digits=3, decimal_places=1)
     ptsv = models.IntegerField()
     ptsh = models.IntegerField()
-
+    
     class Meta:
         managed = False
         db_table = 'games'
@@ -419,7 +419,7 @@ class Kickoffs(models.Model):
 
 
 class Offense(models.Model):
-    uid = models.IntegerField(unique=True)
+    uid = models.IntegerField(unique=True,primary_key=True)
     gid = models.IntegerField()
     player = models.CharField(max_length=7)
     pa = models.IntegerField()
@@ -460,7 +460,7 @@ class Offense(models.Model):
 
 
 class Passing(models.Model):
-    pid = models.IntegerField(unique=True)
+    pid = models.IntegerField(unique=True, primary_key=True)
     psr = models.CharField(max_length=7)
     trg = models.CharField(max_length=7, blank=True, null=True)
     loc = models.CharField(max_length=2)
@@ -491,7 +491,7 @@ class Penalties(models.Model):
 
 
 class Player(models.Model):
-    player = models.CharField(unique=True, max_length=7)
+    player = models.CharField(unique=True, max_length=7,primary_key=True)
     fname = models.CharField(max_length=20)
     lname = models.CharField(max_length=25)
     pname = models.CharField(max_length=25)
@@ -608,7 +608,7 @@ class PlaysFlat(models.Model):
     ktb = models.CharField(max_length=1, blank=True, null=True)
     kr = models.CharField(max_length=7, blank=True, null=True)
     kry = models.CharField(max_length=3, blank=True, null=True)
-
+    
     class Meta:
         managed = False
         db_table = 'plays_flat'
@@ -714,7 +714,7 @@ class Tackles(models.Model):
 
 
 class Teams(models.Model):
-    tid = models.IntegerField()
+    tid = models.IntegerField(primary_key=True)
     gid = models.IntegerField()
     tname = models.CharField(max_length=3)
     pts = models.IntegerField()
@@ -1080,7 +1080,7 @@ class TempClass(models.Model):
 
 
 class Touchdowns(models.Model):
-    pid = models.IntegerField(unique=True)
+    pid = models.IntegerField(unique=True, primary_key=True)
     qtr = models.IntegerField()
     min = models.IntegerField()
     sec = models.IntegerField()

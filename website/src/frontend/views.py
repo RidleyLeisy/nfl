@@ -51,7 +51,6 @@ def lb_view(request, *args, **kwargs):
 def kicker_view(request, *args, **kwargs):
     return render(request, "players/kicker.html", {})
 
-
 def matchup_view(request, *args, **kwargs):
     return render(request, "matchups.html", {})
 

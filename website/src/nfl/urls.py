@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
 from frontend.views import *
+from frontend.api.views import *
+from .router import router
 
 urlpatterns = [
     path('', home_view, name='home'),
@@ -37,6 +39,5 @@ urlpatterns = [
     path('matchups', matchup_view, name='matchups'),
     path('admin/', admin.site.urls),
     # api views
-    url(r'^api/games/',include(('frontend.api.urls','frontend'),namespace='api-games')),
-    url(r'^api/playsflat/',include(('frontend.api.urls','frontend'),namespace='api-playsflat'))
+    path('api/',include(router.urls)),
     ]
