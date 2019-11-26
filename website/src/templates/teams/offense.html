@@ -4,7 +4,9 @@
 
 <head>
     {% load static %}
-    <script src="{% static 'nfl/points_scored.js' %}"></script>
+    <script src="{% static 'nfl/offense.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'nfl/css/teams.css' %}">
+    
 </head>
 <body>
     <h2>Choose your team</h2>
@@ -65,29 +67,25 @@
             <option value="2018">2018</option>
             <option value="2019">2019</option>
         </select>
+        <p id="showData"></p>
     <script>
     function storeInput(){
         var team_name = document.getElementById("team-name").value
+
         var year = document.getElementById("year").value
-        let t = test(team_name,year)
-        console.log(t)
+        offense(team_name,year)
+        displayTable(team_name,year)
+    
     }
 
     </script>
 
     <div id="data"></div>
 
-    <table id="home_away">
-    <tr>
-    <td class="first"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-        </tr>
-    </table>
+
     <div id="graph"></graph>
 
-
+    
 </body>
 
  {% endblock %} 

@@ -1,6 +1,6 @@
 
 const getResponse = async (team_name) =>{
-    const response = await fetch(`/api/games/${team_name}`)
+    const response = await fetch(`/api/games/?team_name=${team_name}`)
     let data = await response.json()
     return data
   }
@@ -88,7 +88,59 @@ const mainFunction = (team_name, season) => {
       });
     }
 
-const test = async (team_name, season) => {
-    let t =  mainFunction(team_name, season)
-    return t
+const offense = async (team_name, season) => {
+    let visuals =  mainFunction(team_name, season)
+    return visuals
+}
+
+
+const displayTable = (team_name, season) => {
+    getResponse(team_name).then(function(data){
+   
+        // EXTRACT VALUE FOR HTML HEADER. 
+        // ('Book ID', 'Book Name', 'Category' and 'Price')
+        var col = [];
+        for (var i = 0; i < data.length; i++) {
+            for (var key in data[i]) {
+                if ((col.indexOf(key) === -1) & (key !='gid')) {
+                    col.push(key);
+                }
+            }
+        }
+        console.log(data[1])
+
+        // CREATE DYNAMIC TABLE.
+        var table = document.createElement("table");
+        table.className = 'table-sm' // Add Bootstrap Styling
+
+        // CREATE HTML TABLE HEADER ROW USING THE EXTRACTED HEADERS ABOVE.
+
+        var tr = table.insertRow(-1);                   // TABLE ROW.
+
+        for (var i = 0; i < col.length; i++) {
+            var th = document.createElement("th");      // TABLE HEADER.
+            th.innerHTML = col[i];
+            tr.appendChild(th);
+        }
+
+        // ADD JSON DATA TO THE TABLE AS ROWS.
+        for (var i = 0; i < data.length; i++) {
+
+            tr = table.insertRow(-1);
+
+            for (var j = 0; j < col.length; j++) {
+                if (data[i]['seas'] == season){
+                    var tabCell = tr.insertCell(-1);
+                    tabCell.innerHTML = data[i][col[j]];
+                }
+                
+            }
+        }
+        
+        // FINALLY ADD THE NEWLY CREATED TABLE WITH JSON DATA TO A CONTAINER.
+        var divContainer = document.getElementById("showData");
+        divContainer.innerHTML = "";
+        divContainer.appendChild(table);
+    }
+)
 }
