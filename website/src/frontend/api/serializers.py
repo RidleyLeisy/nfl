@@ -7,13 +7,7 @@ class GamesSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Games
 		fields = '__all__'
-
-
-class TouchdownsFlatSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Touchdowns
-		fields = '__all__'
-
+		
 
 class PlayerPositionSerializer(serializers.ModelSerializer):
 	class Meta:

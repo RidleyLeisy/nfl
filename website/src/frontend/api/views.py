@@ -33,7 +33,8 @@ class PlayerPositionReadView(viewsets.ViewSet):
 
 	def list(self, request):
 		player_name = self.request.query_params.get('player_name')
-		query_set = Player.objects.filter(Q(fname=player_name))
+		player_name = re.findall('[A-Z][^A-Z]*', player_name) # Split name based on capital letters
+		query_set = Player.objects.filter(Q(fname=player_name[0]) & Q(lname=player_name[1]))
 		serializer = PlayerPositionSerializer(query_set, many=True)
 		return Response(serializer.data)
 
@@ -65,7 +66,7 @@ class PassingReadView(viewsets.ViewSet):
 		if filter_by == 'qb':
 			game_ids = []
 			team_name = self.request.query_params.get('team_name')
-			year = self.request.query_params.get('year')
+			year = self.request.query_params.get('season')
 			qb_id = Player.objects.filter(Q(cteam=team_name) & Q(pos1='QB') & Q(dcp=1)).first().player
 			game_ids_query_set = Games.objects.filter(Q(seas=year) & (Q(v=team_name) | Q(h=team_name)))
 			for game in game_ids_query_set:
@@ -80,7 +81,7 @@ class PassingReadView(viewsets.ViewSet):
 			player_name = self.request.query_params.get('player_name')
 			player_name = re.findall('[A-Z][^A-Z]*', player_name) # Split name based on capital letters
 			player_id = Player.objects.filter(Q(fname=player_name[0]) & Q(lname=player_name[1])).first().player
-			query_set = Passing.objects.filter(player=player_id)
+			query_set = Passing.objects.filter(trg__contains=player_id)
 			serializer = PassingSerializer(query_set, many=True)
 		return Response(serializer.data)
 		
@@ -90,7 +91,7 @@ class TouchdownReadView(viewsets.ViewSet):
 	def list(self, request):
 		game_ids = []
 		team_name = self.request.query_params.get('team_name')
-		year = self.request.query_params.get('year')
+		year = self.request.query_params.get('season')
 		game_ids_query_set = Games.objects.filter(Q(seas=year) & (Q(v=team_name) | Q(h=team_name)))
 		for game in game_ids_query_set:
 				game_ids.append(game.gid)
@@ -101,3 +102,11 @@ class TouchdownReadView(viewsets.ViewSet):
 		query_set = Touchdowns.objects.filter(pid__in=play_ids)
 		serializer = TouchdownSerializer(query_set, many=True)
 		return Response(serializer.data)
+
+
+class OffenseStatsReadView(viewsets.ViewSet):
+	permission_classes = [IsAdminUser]
+
+	def list(self, request):
+		self.request.query_params.get('year')
+		return 
