@@ -5,12 +5,22 @@
     b. Recent news scraped from ESPN, Yahoo Sports, other..
     c. Stat of the day
 2. Teams (Two Sided with NFL Averages)
-    a. Dashboard with offensive and defensive stats
+    a. Offensive stats
+        i. Games overview in table (seas, wk, day, v, h, stad, temp, humd, wspd, wdir, cond, surf, ou, sprv, ptsv, ptsh) 
+        ii. Point distribution
+        iii. Rush and Pass attack (direction, completion, attempts) - Check Team Stats Table
+        iv. Top rushers and receivers 
+        v. Touchdown analysis (play type, distance, quarter scored)
+    b. Defensive stats
+        i. Interceptions
+        ii. Sacks
+        iii. Defensive Play Calling - Check Team Stats Table
 3. Players
-    a. Dashboard with specific players details 
+    a. Height, weight, college, dob, nfl debut - Check Player Table
     b. Sub category dashboard based on postion
 4. Match Ups
     a. Predictable stats for upcoming week game winners
+    b. Weather related corrections
 
 
 # REST API
