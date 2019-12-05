@@ -6,7 +6,7 @@ The [Trello Board](https://trello.com/b/tbx7yvxR/coinflip)
 
 ### Project Description
 
-CoinFlip is a NFL analytics website designed to give users powerful insights on players, teams, and upcoming games. Our dashboards are updated weekly with the latest NFL stats and include machine learning models to enhance weekly matchup predictablity.
+CoinFlip is a NFL analytics website designed to give users powerful insights on players, teams, and upcoming games. Our dashboards are updated weekly with the latest NFL stats and include machine learning models to enhance weekly matchup predictability.
 
 
 ### Tech Stack
