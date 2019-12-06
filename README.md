@@ -12,7 +12,7 @@ CoinFlip is a NFL analytics website designed to give users powerful insights on 
 ### Tech Stack
 ![MIT](https://img.shields.io/packagist/l/doctrine/orm.svg)
 ![Typescript](https://img.shields.io/npm/types/typescript.svg?style=flat)
-![Netlify](https://api.netlify.com/api/v1/badges/b5c4db1c-b10d-42c3-b157-3746edd9e81d/deploy-status)
+![AWS](https://img.shields.io/npm/types/aws.svg?style=flat)
 ![Code Style](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)
 ![Python](https://img.shields.io/badge/python-3.7-blue)
 ![django](https://img.shields.io/badge/django-blue)
