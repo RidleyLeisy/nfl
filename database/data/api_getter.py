@@ -134,12 +134,13 @@ class apiGetter():
         error = False
 
         while error == False:
+            print(f'{URI}/{self.endpoint}/{self.season}/{self.id}?start={self.start + self.offset}{self.ext_params}')
             r = requests.get(f'{URI}/{self.endpoint}/{self.season}/{self.id}?start={self.start + self.offset}{self.ext_params}',
                                 headers={'Authorization': apiGetter.creds})
             
             if r.status_code != 200:
                 error = True # Breaking loop
-                print(f'Failed to load {self.season} with status {r.status_code}') # Failure state
+                print(f'Failed to load {self.season} with status {r.status_code}. Error: {r.content}') # Failure state
 
             elif len(r.json()['data']) == 0:
                 error = True # Breaking loop

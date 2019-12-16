@@ -2,8 +2,10 @@ from django.shortcuts import render
 import json
 from django.http import HttpResponse, JsonResponse
 from django.core import serializers
+from django.db.models import Q
 from django.core.serializers.json import DjangoJSONEncoder
-from frontend.models import Conversions, Blocks, Games
+from frontend.models import Conversions, Blocks, Games, Schedule
+from django.shortcuts import get_object_or_404
 
 # Views
 def home_view(request, *args, **kwargs):
@@ -12,8 +14,15 @@ def home_view(request, *args, **kwargs):
 def about_view(request, *args, **kwargs):
     return render(request, "about.html", {})
 
-def team_view(request, *args, **kwargs):
-	return render(request, "teams.html", {})
+def team_view(request, slug=None, *args, **kwargs):
+    obj = Schedule.objects.filter(Q(h=slug)).first()
+    context = {
+        "team_name":obj.h,
+        "stad":obj.stad,
+        "surf":obj.surf
+    }
+    return render(request, "teams/team.html", context)
+
 
 def offense_team_view(request, *args, **kwargs):
     return render(request, "teams/offense.html")

@@ -74,6 +74,8 @@ class dbImporter():
     def _database_prep(rows:list, json):
         """Method used to clean API call in order to properly import into database"""
         db_cols = list(json[0].keys())
+        if 'desc' in db_cols:
+            db_cols = [x.replace('desc', 'info') for x in db_cols] # remove keyword for penalities table
         rows_tuple = list(tuple(x) for x in rows)
         seperator = ','
         sql_cols = '(' + seperator.join(db_cols) + ')'
@@ -87,11 +89,12 @@ class dbImporter():
         rows = self._json_to_list(json)
         sql_cols, sql_values, rows_tuple = self._database_prep(rows, json)
         
-        print(f'Import the following columns: {sql_cols} into {self.table}')
+        
 
         for sec in self.chunks(rows_tuple, 1000):
             cnx = self._open_connection() # opening database connection
             cursor = cnx.cursor()
+            print(f"INSERT IGNORE INTO {self.table} {sql_cols} VALUES {sql_values}")
             data = (f"INSERT IGNORE INTO {self.table} {sql_cols} VALUES {sql_values}")
             cursor.executemany(data, sec)
             cnx.commit()

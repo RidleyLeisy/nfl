@@ -687,7 +687,7 @@ class Safeties(models.Model):
 
 
 class Schedule(models.Model):
-    gid = models.IntegerField(unique=True)
+    gid = models.IntegerField(unique=True, primary_key=True)
     seas = models.IntegerField()
     wk = models.IntegerField()
     day = models.CharField(max_length=3)

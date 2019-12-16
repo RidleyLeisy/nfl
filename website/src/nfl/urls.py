@@ -23,7 +23,7 @@ from .router import router
 urlpatterns = [
     path('', home_view, name='home'),
     path('about', about_view, name='about'),
-    path('teams', team_view, name='teams'),
+    url(r'^teams/team/(?P<slug>[-\w]+)/$', team_view, name='teams'),
     path('teams/offense', offense_team_view, name='offense'),
     path('teams/defense', defense_team_view, name='defense'),
     path('players', player_view, name='players'),

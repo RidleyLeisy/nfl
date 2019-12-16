@@ -1,9 +1,9 @@
 
 {"data":
-    {"active_players": 
+    {"players": 
         {"endpoint":"players",
         "id":"",
-        "table":"active_players",
+        "table":"player",
         "filter_by":"player",
         "season": "",
         "start": 1,
@@ -50,10 +50,11 @@
         "ext_params":""},
     "drives": 
         {"endpoint":"games",
-        "id":"",
+        "id":"drives",
         "table":"drives",
-        "filter_by":"games",
+        "filter_by":"season",
         "season":2000, 
+        "start":1,
         "ext_params":""},
     "fgxps": 
         {"endpoint":"games",

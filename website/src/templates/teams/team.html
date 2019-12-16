@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<head>
+    {% load static %}
+    <script src="{% static 'nfl/offense.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'nfl/css/teams.css' %}" >
+</head>
+
+<body>
+    <div class="jumbotron">
+    <img id="logo" src="" width="60" height="50">
+    <br>
+    <h2>Choose your team</h2>
+    <button id="teams" value="ATL" onclick="storeInput()">Select</button>
+        <select id="team-name" value="ATL"> 
+            <option value ="ARI">Arizona Cardinals</option>
+            <option value="ATL">Atlanta Falcons</option>
+            <option value="BAL">Baltimore Ravens</option>
+            <option value="BUF">Buffalo Bills</option>
+            <option value="CAR">Caronlina Panthers</option>
+            <option value="CIN">Cincinnati Bengals</option>
+            <option value="CLE">Cleveland Browns</option>
+            <option value="DAL">Dallas Cowboys</option>
+            <option value="DEN">Denver Broncos</option>
+            <option value="DET">Detroit Lions</option>
+            <option value="GB">Green Bay Packers</option>
+            <option value="HOU">Houston Texans</option>
+            <option value="IND">Indianapolis Colts</option>
+            <option value="JAC">Jacksonville Jaguars</option>
+            <option value="KC">Kansas City Chiefs</option>
+            <option value="LAR">Los Angeles Rams</option>
+            <option value="MIA">Miami Dolphins</option>
+            <option value="MIN">Minnesota Vikings</option>
+            <option value="NE">New England Patriots</option>
+            <option value="NO">New Orleans Saints</option>
+            <option value="NYG">New York Giants</option>
+            <option value="NYJ">New York Jets</option>
+            <option value="OAK">Oakland Raiders</option>
+            <option value="PHI">Philadelphia Eagles</option>
+            <option value="PIT">Pittsburgh Steelers</option>
+            <option value="LAC">Los Angeles Chargers</option>
+            <option value="SF">San Francisco 49ers</option>
+            <option value="SEA">Seattle Seahawks</option>
+            <option value="TB">Tampa Bay Buccaneers</option>
+            <option value="TEN">Tennessee Titans</option>
+            <option value="WAS">Washington Redskins</option>
+        </select>
+        <select id="year"> 
+            <option value="2000">2000</option>
+            <option value="2001">2001</option>
+            <option value="2002">2002</option>
+            <option value="2003">2003</option>
+            <option value="2004">2004</option>
+            <option value="2005">2005</option>
+            <option value="2006">2006</option>
+            <option value="2007">2007</option>
+            <option value="2008">2008</option>
+            <option value="2009">2009</option>
+            <option value="2010">2010</option>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+            <option value="2015">2015</option>
+            <option value="2016">2016</option>
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+        </select>
+        </div>
+        <p id="showData"></p>
+
+        <script>
+        function storeInput(){
+    
+            var team_name = document.getElementById("team-name").value
+            var year = document.getElementById("year").value
+            offense(team_name,year)
+            displayTable(team_name,year)
+            var theImg = document.getElementById("logo");
+            theImg.src = "../static/nfl/img/" + team_name.toLowerCase() + ".png";
+        }
+        </script>
+        <div id="data"></div>
+        <div id="graph"></graph>
+    
+</body>
+
+{% endblock %} 
